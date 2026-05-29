@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Autentificare — IPOTECA PLUS SRL</title>
+  <link rel="stylesheet" href="/css/main.css" />
+</head>
+<body>
+
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:linear-gradient(135deg,#0D1B2A 0%,#1A2E45 50%,#0D2137 100%);">
+  <div style="width:100%;max-width:420px;">
+
+    <a href="/" class="nav-logo" style="justify-content:center;margin-bottom:24px;">
+      <div class="nav-logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V21H3V9.5zm2 1.17V19h14v-8.33L12 5.34 5 10.67z"/></svg>
+      </div>
+      <div class="nav-logo-text">
+        <span class="nav-logo-name">IPOTECA PLUS</span>
+        <span class="nav-logo-sub">Agenție Imobiliară</span>
+      </div>
+    </a>
+
+    <div class="form-card">
+      <h3 style="color:var(--navy);margin-bottom:6px;">Bine ai revenit</h3>
+      <p style="color:var(--gray-400);font-size:.9rem;margin-bottom:24px;">Autentifică-te în contul tău</p>
+
+      <div id="authAlert"></div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" autocomplete="email" placeholder="email@exemplu.md" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Parolă</label>
+          <input type="password" class="form-control" id="password" autocomplete="current-password" placeholder="••••••••" required />
+        </div>
+        <button type="submit" class="btn btn-primary" id="loginBtn" style="width:100%;justify-content:center;margin-top:4px;">
+          Autentificare
+        </button>
+      </form>
+
+      <p style="text-align:center;color:var(--gray-400);font-size:.9rem;margin-top:20px;">
+        Nu ai cont? <a href="/register" style="color:var(--gold);font-weight:600;">Creează unul</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById('loginForm');
+  const alertEl = document.getElementById('authAlert');
+  const btn = document.getElementById('loginBtn');
+
+  // Already logged in? Redirect based on role.
+  fetch('/api/auth/me', { credentials: 'include' })
+    .then(r => r.json())
+    .then(d => { if (d.authenticated) window.location = '/admin/dashboard.html'; })
+    .catch(() => {});
+
+  fetch('/api/users/me', { credentials: 'include' })
+    .then(r => r.json())
+    .then(d => { if (d.authenticated) window.location = '/'; })
+    .catch(() => {});
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    alertEl.innerHTML = '';
+    btn.disabled = true;
+    btn.textContent = 'Se autentifică...';
+    try {
+      const res = await fetch('/api/users/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          email: document.getElementById('email').value.trim(),
+          password: document.getElementById('password').value
+        })
+      });
+      const json = await res.json();
+      if (json.success) {
+        window.location = '/';
+      } else {
+        alertEl.innerHTML = `<div class="alert alert-error">${json.error || 'Credențiale invalide.'}</div>`;
+      }
+    } catch (err) {
+      alertEl.innerHTML = '<div class="alert alert-error">Eroare de rețea. Încercați din nou.</div>';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Autentificare';
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IPOTECA PLUS SRL — Agenție Imobiliară</title>
+  <meta name="description" content="IPOTECA PLUS SRL — Agenție imobiliară cu experiență în vânzări, închirieri și consultanță imobiliară." />
+  <link rel="stylesheet" href="/css/main.css" />
+</head>
+<body>
+
+<!-- ─── NAVBAR ─────────────────────────────────────────────── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V21H3V9.5zm2 1.17V19h14v-8.33L12 5.34 5 10.67z"/></svg>
+      </div>
+      <div class="nav-logo-text">
+        <span class="nav-logo-name">IPOTECA PLUS</span>
+        <span class="nav-logo-sub">Agenție Imobiliară</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/" class="active">Acasă</a></li>
+      <li><a href="/properties.html">Proprietăți</a></li>
+      <li><a href="#why-us">Despre noi</a></li>
+      <li><a href="#agents">Echipa</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="tel:+37369012345" class="btn btn-primary nav-cta btn-sm" style="display:none;" id="navCta">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.07 2.18 2 2 0 012.07 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+      Sunați-ne
+    </a>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Meniu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ─── HERO ────────────────────────────────────────────────── -->
+<section class="hero" id="home">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      Nr. 1 în Imobiliare Chișinău
+    </div>
+    <h1>Găsim <em>locuința</em><br/>visurilor tale</h1>
+    <p class="hero-desc">Peste 15 ani de experiență în piața imobiliară din Moldova. Vânzări, închirieri, consultanță — suntem alături de tine la fiecare pas.</p>
+    <div class="hero-actions">
+      <a href="/properties.html" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        Caută proprietăți
+      </a>
+      <a href="#contact" class="btn btn-outline">Contactează-ne</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="hero-stat-num">500+</span><span class="hero-stat-label">Proprietăți vândute</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">15+</span><span class="hero-stat-label">Ani experiență</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">98%</span><span class="hero-stat-label">Clienți mulțumiți</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SEARCH BAR ───────────────────────────────────────────── -->
+<div class="search-bar-section">
+  <div class="search-bar-wrap">
+    <div class="search-tabs">
+      <button class="search-tab active" data-trans="vanzare">De Vânzare</button>
+      <button class="search-tab" data-trans="inchiriere">De Închiriat</button>
+    </div>
+    <div class="search-fields">
+      <div class="search-field">
+        <label>Tip proprietate</label>
+        <select id="sType">
+          <option value="">Toate tipurile</option>
+          <option value="apartament">Apartament</option>
+          <option value="casa">Casă / Vilă</option>
+          <option value="teren">Teren</option>
+          <option value="comercial">Spațiu comercial</option>
+          <option value="birou">Birou</option>
+        </select>
+      </div>
+      <div class="search-field">
+        <label>Oraș</label>
+        <input type="text" id="sCity" placeholder="Ex: București" />
+      </div>
+      <div class="search-field">
+        <label>Preț maxim</label>
+        <input type="number" id="sMaxPrice" placeholder="Ex: 200000" />
+      </div>
+      <div class="search-field">
+        <label>Camere</label>
+        <select id="sRooms">
+          <option value="">Orice</option>
+          <option value="1">1 cameră</option>
+          <option value="2">2 camere</option>
+          <option value="3">3 camere</option>
+          <option value="4">4+ camere</option>
+        </select>
+      </div>
+      <div class="search-btn-wrap">
+        <button class="btn btn-primary" onclick="doHeroSearch()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          Caută
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FEATURED PROPERTIES ────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Proprietăți recomandate</div>
+      <h2>Oferte selecționate</h2>
+      <p>Cele mai bune proprietăți din portofoliul nostru, selectate de experții noștri</p>
+    </div>
+    <div id="featuredGrid" class="props-grid">
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Se încarcă...</p>
+      </div>
+    </div>
+    <div class="view-more-wrap">
+      <a href="/properties.html" class="btn btn-dark">
+        Vezi toate proprietățile
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── WHY US ───────────────────────────────────────────────── -->
+<section class="section section-alt" id="why-us">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">De ce noi</div>
+      <h2>Expertiză la cel mai înalt nivel</h2>
+      <p>Suntem mai mult decât o agenție imobiliară — suntem partenerii tăi de încredere</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Tranzacții sigure</h3>
+        <p>Verificăm fiecare proprietate din portofoliu, oferind garanție juridică completă pentru toate tranzacțiile.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg>
+        </div>
+        <h3>Consultanță personalizată</h3>
+        <p>Fiecare client este unic. Oferim soluții adaptate nevoilor și bugetului fiecărei persoane.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.86L12 17.77l-6.18 3.23 1.18-6.86L2 9.27l6.91-1.01z"/></svg>
+        </div>
+        <h3>Experiență 15+ ani</h3>
+        <p>Un portofoliu de 500+ tranzacții reușite și sute de clienți mulțumiți care revin și ne recomandă.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3>Echipă dedicată</h3>
+        <p>Agenți certificați, cu experiență vastă în piața locală și relații excelente în industrie.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <h3>Portofoliu vast</h3>
+        <p>Sute de proprietăți disponibile: apartamente, case, terenuri, spații comerciale și de birouri.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3>Răspuns rapid</h3>
+        <p>Vă răspundem în mai puțin de 2 ore și programăm vizionări în aceeași zi sau ziua următoare.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── AGENTS ───────────────────────────────────────────────── -->
+<section class="section" id="agents">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Echipa noastră</div>
+      <h2>Agenți de top</h2>
+      <p>Profesioniști dedicați, pregătiți să vă ajute la fiecare pas</p>
+    </div>
+    <div id="agentsGrid" class="agents-grid">
+      <div class="loading-state"><div class="spinner"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ──────────────────────────────────────────────────── -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Ești gata să îți găsești locuința ideală?</h2>
+    <p>Contactează-ne astăzi și lasă-ne să te ajutăm să îți îndeplinești visul imobiliar.</p>
+    <div class="cta-actions">
+      <a href="/properties.html" class="btn btn-primary">Caută proprietăți</a>
+      <a href="#contact" class="btn btn-outline">Vorbește cu un agent</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ──────────────────────────────────────────────── -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Contact</div>
+      <h2>Suntem la dispoziția ta</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Hai să discutăm!</h3>
+        <p>Fie că vrei să vinzi, să cumperi sau să închiriezi, echipa noastră este pregătită să îți ofere consultanță completă și transparentă.</p>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="contact-detail-text">
+            <strong>Adresă</strong>
+            <span>Strada Mircești, lângă Colegiul UTM</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <div class="contact-detail-text">
+            <strong>Telefon</strong>
+            <span>+373 69 012 345 | +373 67 676 676</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div class="contact-detail-text">
+            <strong>Email</strong>
+            <span>office@ipotecaplus.md</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="contact-detail-text">
+            <strong>Program</strong>
+            <span>Luni–Vineri: 9:00–18:00 | Sâmbătă: 10:00–14:00</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-card">
+        <div id="contactAlert"></div>
+        <div class="form-group">
+          <label>Nume și prenume *</label>
+          <input type="text" class="form-control" id="cName" placeholder="Ion Popescu" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Telefon</label>
+            <input type="tel" class="form-control" id="cPhone" placeholder="+373 69 XXX XXX" />
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" class="form-control" id="cEmail" placeholder="email@exemplu.md" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Mesaj *</label>
+          <textarea class="form-control" id="cMessage" placeholder="Cum vă putem ajuta?"></textarea>
+        </div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="submitContact()">
+          Trimite mesajul
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ───────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="margin-bottom:0">
+          <div class="nav-logo-icon"><svg viewBox="0 0 24 24" fill="white"><path d="M3 9.5L12 3l9 6.5V21H3V9.5zm2 1.17V19h14v-8.33L12 5.34 5 10.67z"/></svg></div>
+          <div class="nav-logo-text"><span class="nav-logo-name">IPOTECA PLUS</span><span class="nav-logo-sub">SRL</span></div>
+        </div>
+        <p>Agenție imobiliară cu experiență de 15 ani în piața din România. Partenerul tău de încredere pentru orice tranzacție imobiliară.</p>
+        <div style="display:flex;gap:12px">
+          <a href="#" style="width:36px;height:36px;background:rgba(255,255,255,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);transition:.2s" onmouseover="this.style.background='rgba(201,168,76,.2)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">f</a>
+          <a href="#" style="width:36px;height:36px;background:rgba(255,255,255,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);transition:.2s" onmouseover="this.style.background='rgba(201,168,76,.2)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">in</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Proprietăți</h4>
+        <ul>
+          <li><a href="/properties.html?transaction=vanzare">De vânzare</a></li>
+          <li><a href="/properties.html?transaction=inchiriere">De închiriat</a></li>
+          <li><a href="/properties.html?type=apartament">Apartamente</a></li>
+          <li><a href="/properties.html?type=casa">Case & Vile</a></li>
+          <li><a href="/properties.html?type=teren">Terenuri</a></li>
+          <li><a href="/properties.html?type=comercial">Spații comerciale</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Companie</h4>
+        <ul>
+          <li><a href="#why-us">Despre noi</a></li>
+          <li><a href="#agents">Echipa</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#">Blog imobiliar</a></li>
+          <li><a href="#">Cariere</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+37369012345">+373 69 012 345</a></li>
+          <li><a href="mailto:office@ipotecaplus.md">office@ipotecaplus.md</a></li>
+          <li style="color:rgba(255,255,255,.5);font-size:.82rem;line-height:1.5">Calea Victoriei 200, Et. 3<br/>București, Sector 1</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 <span>IPOTECA PLUS SRL</span>. Toate drepturile rezervate.</span>
+      <span>CUI: RO12345678 | J40/1234/2010</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/main.js"></script>
+<script>
+  // Load featured properties
+  async function loadFeatured() {
+    const grid = document.getElementById('featuredGrid');
+    try {
+      const res = await fetch('/api/properties?featured=true&limit=6');
+      const json = await res.json();
+      if (!json.data || json.data.length === 0) {
+        grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--gray-400)">Nicio proprietate disponibilă momentan.</p>';
+        return;
+      }
+      grid.innerHTML = json.data.map(p => renderCard(p)).join('');
+    } catch (e) {
+      grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--gray-400)">Eroare la încărcare.</p>';
+    }
+  }
+
+  // Load agents
+  async function loadAgents() {
+    const grid = document.getElementById('agentsGrid');
+    try {
+      const res = await fetch('/api/admin/agents'); // will redirect if not admin — use public endpoint workaround
+      // Actually use the properties endpoint to infer agents from property data
+      const res2 = await fetch('/api/properties?limit=50');
+      const json = await res2.json();
+      const agentsMap = {};
+      if (json.data) {
+        json.data.forEach(p => {
+          if (p.agent_name && !agentsMap[p.agent_name]) {
+            agentsMap[p.agent_name] = { name: p.agent_name, phone: p.agent_phone };
+          }
+        });
+      }
+      const agents = Object.values(agentsMap);
+      if (agents.length === 0) {
+        grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--gray-400)">Niciun agent disponibil.</p>';
+        return;
+      }
+      grid.innerHTML = agents.slice(0,3).map(a => `
+        <div class="agent-card">
+          <div class="agent-avatar">${a.name.split(' ').map(x=>x[0]).join('').slice(0,2)}</div>
+          <div class="agent-name">${a.name}</div>
+          <div class="agent-bio">Agent imobiliar autorizat</div>
+          <div class="agent-contacts">
+            ${a.phone ? `<div class="agent-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>${a.phone}</div>` : ''}
+          </div>
+        </div>
+      `).join('');
+    } catch (e) {
+      grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--gray-400)">Eroare la încărcare.</p>';
+    }
+  }
+
+  async function submitContact() {
+    const name = document.getElementById('cName').value.trim();
+    const phone = document.getElementById('cPhone').value.trim();
+    const email = document.getElementById('cEmail').value.trim();
+    const message = document.getElementById('cMessage').value.trim();
+    const alertEl = document.getElementById('contactAlert');
+    if (!name || !message) {
+      alertEl.innerHTML = '<div class="alert alert-error">Completați câmpurile obligatorii (nume și mesaj).</div>';
+      return;
+    }
+    try {
+      const res = await fetch('/api/properties/contact/general', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ full_name: name, phone, email, message })
+      });
+      const json = await res.json();
+      if (json.success) {
+        alertEl.innerHTML = '<div class="alert alert-success">✓ Mesajul a fost trimis! Vă vom contacta în curând.</div>';
+        document.getElementById('cName').value = '';
+        document.getElementById('cPhone').value = '';
+        document.getElementById('cEmail').value = '';
+        document.getElementById('cMessage').value = '';
+      } else {
+        alertEl.innerHTML = `<div class="alert alert-error">${json.error}</div>`;
+      }
+    } catch (e) {
+      alertEl.innerHTML = '<div class="alert alert-error">Eroare de rețea. Încercați din nou.</div>';
+    }
+  }
+
+  let activeTransaction = 'vanzare';
+  document.querySelectorAll('.search-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.search-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      activeTransaction = tab.dataset.trans;
+    });
+  });
+
+  function doHeroSearch() {
+    const params = new URLSearchParams();
+    params.set('transaction', activeTransaction);
+    const type = document.getElementById('sType').value;
+    const city = document.getElementById('sCity').value;
+    const maxPrice = document.getElementById('sMaxPrice').value;
+    const rooms = document.getElementById('sRooms').value;
+    if (type) params.set('type', type);
+    if (city) params.set('city', city);
+    if (maxPrice) params.set('maxPrice', maxPrice);
+    if (rooms) params.set('rooms', rooms);
+    window.location.href = '/properties.html?' + params.toString();
+  }
+
+  loadFeatured();
+  loadAgents();
+</script>
+</body>
+</html>

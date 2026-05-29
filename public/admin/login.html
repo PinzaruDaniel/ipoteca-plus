@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Autentificare Admin — IPOTECA PLUS SRL</title>
+  <link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body>
+
+<div class="login-page">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V21H3V9.5zm2 1.17V19h14v-8.33L12 5.34 5 10.67z"/></svg>
+      </div>
+      <h2>IPOTECA PLUS</h2>
+      <p>Panou de administrare</p>
+    </div>
+
+    <form class="login-form" id="loginForm">
+      <h3>Autentificare</h3>
+      <div class="login-error" id="loginError"></div>
+
+      <div class="form-group-login">
+        <label for="username">Utilizator</label>
+        <input type="text" id="username" name="username" autocomplete="username" required />
+      </div>
+
+      <div class="form-group-login">
+        <label for="password">Parolă</label>
+        <input type="password" id="password" name="password" autocomplete="current-password" required />
+      </div>
+
+      <button type="submit" class="login-btn" id="loginBtn">Intră în cont</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById('loginForm');
+  const errorEl = document.getElementById('loginError');
+  const btn = document.getElementById('loginBtn');
+
+  // If already logged in, go straight to the dashboard.
+  fetch('/api/auth/me', { credentials: 'include' })
+    .then(r => r.json())
+    .then(d => { if (d.authenticated) window.location = '/admin/dashboard.html'; })
+    .catch(() => {});
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorEl.classList.remove('show');
+    btn.disabled = true;
+    btn.textContent = 'Se autentifică...';
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          username: document.getElementById('username').value.trim(),
+          password: document.getElementById('password').value
+        })
+      });
+      const json = await res.json();
+      if (json.success) {
+        window.location = '/admin/dashboard.html';
+      } else {
+        errorEl.textContent = json.error || 'Credențiale invalide.';
+        errorEl.classList.add('show');
+      }
+    } catch (err) {
+      errorEl.textContent = 'Eroare de rețea. Încercați din nou.';
+      errorEl.classList.add('show');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Intră în cont';
+    }
+  });
+</script>
+</body>
+</html>

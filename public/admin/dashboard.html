@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panou Admin — IPOTECA PLUS SRL</title>
+  <link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body>
+
+<div class="admin-layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V21H3V9.5zm2 1.17V19h14v-8.33L12 5.34 5 10.67z"/></svg>
+      </div>
+      <div class="sidebar-logo-text">
+        <span class="sidebar-logo-name">IPOTECA PLUS</span>
+        <span class="sidebar-logo-sub">Administrare</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-label">Meniu</div>
+      <button class="sidebar-link active" data-nav="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Panou de control
+      </button>
+      <button class="sidebar-link" data-nav="properties">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5L12 3l9 6.5V21H3V9.5z"/></svg>
+        Proprietăți
+      </button>
+      <button class="sidebar-link" data-nav="agents">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        Agenți
+      </button>
+      <button class="sidebar-link" data-nav="inquiries">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>
+        Solicitări
+        <span class="badge" id="inqBadge" style="display:none">0</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-user-avatar" id="adminAvatar">A</div>
+        <div>
+          <div class="sidebar-user-name" id="adminName">Admin</div>
+          <div class="sidebar-user-role">Administrator</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content">
+    <header class="topbar">
+      <h1 class="topbar-title" id="topbarTitle">Panou de control</h1>
+      <div class="topbar-right">
+        <a href="/" class="topbar-btn topbar-btn-ghost">Vezi site-ul</a>
+        <button class="topbar-btn topbar-btn-ghost" id="logoutBtn">Deconectare</button>
+      </div>
+    </header>
+
+    <div class="page-content">
+
+      <!-- Dashboard -->
+      <section data-section="dashboard">
+        <div class="stats-grid">
+          <div class="stat-card blue">
+            <div class="stat-label">Proprietăți active</div>
+            <div class="stat-value" id="statProperties">—</div>
+            <div class="stat-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div>
+          </div>
+          <div class="stat-card gold">
+            <div class="stat-label">Solicitări noi</div>
+            <div class="stat-value" id="statInquiries">—</div>
+            <div class="stat-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
+          </div>
+          <div class="stat-card green">
+            <div class="stat-label">Agenți activi</div>
+            <div class="stat-value" id="statAgents">—</div>
+            <div class="stat-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div>
+          </div>
+          <div class="stat-card red">
+            <div class="stat-label">Vizualizări totale</div>
+            <div class="stat-value" id="statViews">—</div>
+            <div class="stat-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></div>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-header">
+            <h3>Solicitări recente</h3>
+            <button class="btn btn-ghost btn-sm" onclick="showSection('inquiries')">Vezi toate</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nume</th>
+                  <th>Proprietate</th>
+                  <th>Contact</th>
+                  <th>Data</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="recentInquiriesBody">
+                <tr><td colspan="5" class="empty-state"><span class="spinner"></span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Properties -->
+      <section data-section="properties" hidden>
+        <div class="table-card">
+          <div class="table-header">
+            <h3>Proprietăți</h3>
+            <div class="table-toolbar">
+              <div class="table-search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                <input type="text" id="propertySearch" placeholder="Caută..." />
+              </div>
+              <button class="btn btn-primary" id="addPropertyBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+                Adaugă
+              </button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Imagine</th>
+                  <th>Titlu</th>
+                  <th>Tip</th>
+                  <th>Tranzacție</th>
+                  <th>Preț</th>
+                  <th>Locație</th>
+                  <th>Status</th>
+                  <th>Acțiuni</th>
+                </tr>
+              </thead>
+              <tbody id="propertiesBody">
+                <tr><td colspan="8" class="empty-state"><span class="spinner"></span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pagination" id="propertiesPagination"></div>
+        </div>
+      </section>
+
+      <!-- Agents -->
+      <section data-section="agents" hidden>
+        <div class="table-card">
+          <div class="table-header">
+            <h3>Agenți imobiliari</h3>
+            <button class="btn btn-primary" id="addAgentBtn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+              Adaugă agent
+            </button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nume</th>
+                  <th>Telefon</th>
+                  <th>Email</th>
+                  <th>Status</th>
+                  <th>Acțiuni</th>
+                </tr>
+              </thead>
+              <tbody id="agentsBody">
+                <tr><td colspan="5" class="empty-state"><span class="spinner"></span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Inquiries -->
+      <section data-section="inquiries" hidden>
+        <div class="table-card">
+          <div class="table-header">
+            <h3>Solicitări de contact</h3>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nume</th>
+                  <th>Proprietate</th>
+                  <th>Contact</th>
+                  <th>Data</th>
+                  <th>Status</th>
+                  <th>Acțiuni</th>
+                </tr>
+              </thead>
+              <tbody id="inquiriesBody">
+                <tr><td colspan="6" class="empty-state"><span class="spinner"></span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<!-- Property Modal -->
+<div class="modal-overlay" id="propertyModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="propertyModalTitle">Adaugă proprietate</h3>
+      <button class="modal-close" data-close-modal="propertyModal" aria-label="Închide">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <form id="propertyForm">
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="propTitle">Titlu *</label>
+          <input type="text" class="form-control" id="propTitle" required />
+        </div>
+        <div class="form-group">
+          <label for="propDescription">Descriere</label>
+          <textarea class="form-control" id="propDescription"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="propType">Tip *</label>
+            <select class="form-control" id="propType" required>
+              <option value="apartament">Apartament</option>
+              <option value="casa">Casă / Vilă</option>
+              <option value="teren">Teren</option>
+              <option value="comercial">Comercial</option>
+              <option value="birou">Birou</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="propTransaction">Tranzacție *</label>
+            <select class="form-control" id="propTransaction" required>
+              <option value="vanzare">Vânzare</option>
+              <option value="inchiriere">Închiriere</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row-3">
+          <div class="form-group">
+            <label for="propPrice">Preț *</label>
+            <input type="number" class="form-control" id="propPrice" min="0" step="0.01" required />
+          </div>
+          <div class="form-group">
+            <label for="propCurrency">Monedă</label>
+            <select class="form-control" id="propCurrency">
+              <option value="EUR">EUR</option>
+              <option value="RON">RON</option>
+              <option value="USD">USD</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="propSurface">Suprafață (m²)</label>
+            <input type="number" class="form-control" id="propSurface" min="0" step="0.01" />
+          </div>
+        </div>
+        <div class="form-row-3">
+          <div class="form-group">
+            <label for="propRooms">Camere</label>
+            <input type="number" class="form-control" id="propRooms" min="0" />
+          </div>
+          <div class="form-group">
+            <label for="propBathrooms">Băi</label>
+            <input type="number" class="form-control" id="propBathrooms" min="0" />
+          </div>
+          <div class="form-group">
+            <label for="propYear">An construcție</label>
+            <input type="number" class="form-control" id="propYear" min="1800" max="2100" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="propFloor">Etaj</label>
+            <input type="number" class="form-control" id="propFloor" />
+          </div>
+          <div class="form-group">
+            <label for="propTotalFloors">Total etaje</label>
+            <input type="number" class="form-control" id="propTotalFloors" min="0" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="propAddress">Adresă</label>
+          <input type="text" class="form-control" id="propAddress" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="propCity">Oraș</label>
+            <input type="text" class="form-control" id="propCity" />
+          </div>
+          <div class="form-group">
+            <label for="propZone">Zonă</label>
+            <input type="text" class="form-control" id="propZone" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="propImageUrl">Imagine (URL) *</label>
+          <input type="text" class="form-control" id="propImageUrl" placeholder="/images/apartament-1.jpg" />
+          <small style="color:var(--gray-400);font-size:.78rem;margin-top:4px;display:block;">Obligatoriu la adăugare. Cale relativă din folderul /images (ex: /images/vila-1.jpg)</small>
+        </div>
+        <div class="form-group">
+          <label for="propAgent">Agent</label>
+          <select class="form-control" id="propAgent">
+            <option value="">— Fără agent —</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-check">
+            <input type="checkbox" id="propFeatured" />
+            <label for="propFeatured">Recomandat</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" id="propActive" checked />
+            <label for="propActive">Activ</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-ghost" data-close-modal="propertyModal">Anulează</button>
+        <button type="submit" class="btn btn-primary">Salvează</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Agent Modal -->
+<div class="modal-overlay" id="agentModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="agentModalTitle">Adaugă agent</h3>
+      <button class="modal-close" data-close-modal="agentModal" aria-label="Închide">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <form id="agentForm">
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="agentName">Nume complet *</label>
+          <input type="text" class="form-control" id="agentName" required />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="agentPhone">Telefon</label>
+            <input type="tel" class="form-control" id="agentPhone" />
+          </div>
+          <div class="form-group">
+            <label for="agentEmail">Email</label>
+            <input type="email" class="form-control" id="agentEmail" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="agentBio">Bio</label>
+          <textarea class="form-control" id="agentBio"></textarea>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" id="agentActive" checked />
+          <label for="agentActive">Activ</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-ghost" data-close-modal="agentModal">Anulează</button>
+        <button type="submit" class="btn btn-primary">Salvează</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="/js/admin.js"></script>
+</body>
+</html>
