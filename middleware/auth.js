@@ -19,6 +19,10 @@ function isAssetPath(path) {
         /\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|map)$/i.test(path);
 }
 
+function hasUserAccess(session) {
+    return session && (session.userId || session.isGuest);
+}
+
 function pageAuthGuard(req, res, next) {
     if (req.method !== 'GET' && req.method !== 'HEAD') return next();
 
@@ -36,12 +40,12 @@ function pageAuthGuard(req, res, next) {
         if (req.session && req.session.adminId) {
             return res.redirect('/admin/dashboard.html');
         }
-        if (req.session && req.session.userId) return next();
+        if (hasUserAccess(req.session)) return next();
         return res.redirect('/login.html');
     }
 
     if (PROTECTED_USER_PAGES.has(path)) {
-        if ((req.session && req.session.userId) || (req.session && req.session.adminId)) {
+        if (hasUserAccess(req.session) || (req.session && req.session.adminId)) {
             return next();
         }
         return res.redirect('/login.html');

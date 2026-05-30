@@ -21,6 +21,7 @@ router.post('/register', async (req, res) => {
         );
         req.session.userId = result.insertId;
         req.session.userName = full_name;
+        delete req.session.isGuest;
         res.status(201).json({ success: true, name: full_name });
     } catch (err) {
         if (err.code === 'ER_DUP_ENTRY') {
@@ -51,11 +52,20 @@ router.post('/login', async (req, res) => {
         }
         req.session.userId = user.id;
         req.session.userName = user.full_name;
+        delete req.session.isGuest;
         res.json({ success: true, name: user.full_name });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Eroare server.' });
     }
+});
+
+// POST /api/users/guest — browse without an account
+router.post('/guest', (req, res) => {
+    delete req.session.userId;
+    delete req.session.userName;
+    req.session.isGuest = true;
+    res.json({ success: true, guest: true });
 });
 
 // POST /api/users/logout
@@ -68,9 +78,11 @@ router.post('/logout', (req, res) => {
 // GET /api/users/me
 router.get('/me', (req, res) => {
     if (req.session && req.session.userId) {
-        res.json({ authenticated: true, name: req.session.userName });
+        res.json({ authenticated: true, guest: false, name: req.session.userName });
+    } else if (req.session && req.session.isGuest) {
+        res.json({ authenticated: true, guest: true });
     } else {
-        res.json({ authenticated: false });
+        res.json({ authenticated: false, guest: false });
     }
 });
 

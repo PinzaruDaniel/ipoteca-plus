@@ -41,6 +41,10 @@
         </button>
       </form>
 
+      <button type="button" class="btn" id="guestBtn" style="width:100%;justify-content:center;margin-top:12px;background:transparent;color:var(--navy);border:2px solid var(--gray-200);">
+        Continuă fără cont
+      </button>
+
       <p style="text-align:center;color:var(--gray-400);font-size:.9rem;margin-top:20px;">
         Nu ai cont? <a href="/register" style="color:var(--gold);font-weight:600;">Creează unul</a>
       </p>
@@ -63,6 +67,30 @@
     .then(r => r.json())
     .then(d => { if (d.authenticated) window.location = '/'; })
     .catch(() => {});
+
+  document.getElementById('guestBtn').addEventListener('click', async () => {
+    const guestBtn = document.getElementById('guestBtn');
+    alertEl.innerHTML = '';
+    guestBtn.disabled = true;
+    guestBtn.textContent = 'Se continuă...';
+    try {
+      const res = await fetch('/api/users/guest', {
+        method: 'POST',
+        credentials: 'include'
+      });
+      const json = await res.json();
+      if (json.success) {
+        window.location = '/';
+      } else {
+        alertEl.innerHTML = '<div class="alert alert-error">Nu s-a putut continua fără cont.</div>';
+      }
+    } catch (err) {
+      alertEl.innerHTML = '<div class="alert alert-error">Eroare de rețea. Încercați din nou.</div>';
+    } finally {
+      guestBtn.disabled = false;
+      guestBtn.textContent = 'Continuă fără cont';
+    }
+  });
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
